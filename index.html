@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Analytics Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- KEYBOARD HINT -->
+  <div class="kbd-hint" id="kbdHint">
+    <i class="fas fa-keyboard"></i> Press <kbd>?</kbd> for shortcuts
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <div class="logo-wrapper">
+        <i class="fas fa-chart-pie sidebar-logo-icon"></i>
+        <span class="sidebar-title">Analytics Pro</span>
+      </div>
+      <button class="sidebar-collapse-btn" id="sidebarToggle" aria-label="Close sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="sidebar-user-badge">
+      <i class="fas fa-user-circle"></i>
+      <div>
+        <span class="badge-name">Sahil Kalra</span>
+        <span class="badge-role">Admin</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="dashboard">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-section="upload">
+        <i class="fas fa-upload"></i>
+        <span>Upload Data</span>
+      </a>
+      <a href="#" class="nav-item" data-section="reports">
+        <i class="fas fa-file-alt"></i>
+        <span>Reports</span>
+      </a>
+      <a href="#" class="nav-item" data-section="settings">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-info">
+        <i class="fas fa-circle status-dot"></i>
+        <span>All systems normal</span>
+      </div>
+      <p>&copy; 2026 Analytics Pro</p>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+
+    <!-- TOP NAVBAR -->
+    <header class="navbar" role="banner">
+      <div class="navbar-left">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search analytics..." aria-label="Search" id="searchInput" autocomplete="off" />
+          <span class="search-shortcut"><kbd>/</kbd></span>
+          <div class="search-dropdown" id="searchDropdown">
+            <div class="search-dropdown-item" data-search="total records"><i class="fas fa-database"></i> Total Records <span class="search-hint">284K records</span></div>
+            <div class="search-dropdown-item" data-search="revenue"><i class="fas fa-dollar-sign"></i> Total Revenue <span class="search-hint">$1.84M</span></div>
+            <div class="search-dropdown-item" data-search="growth"><i class="fas fa-chart-line"></i> Growth <span class="search-hint">23.6%</span></div>
+            <div class="search-dropdown-item" data-search="users"><i class="fas fa-users"></i> Active Users <span class="search-hint">12.4K</span></div>
+            <div class="search-dropdown-item" data-search="sales"><i class="fas fa-chart-bar"></i> Sales Comparison <span class="search-hint">Chart</span></div>
+            <div class="search-dropdown-item" data-search="revenue trend"><i class="fas fa-chart-line"></i> Trend Over Time <span class="search-hint">Chart</span></div>
+            <div class="search-dropdown-item" data-search="categories"><i class="fas fa-chart-pie"></i> Category Distribution <span class="search-hint">Chart</span></div>
+            <div class="search-dropdown-item" data-search="upload"><i class="fas fa-upload"></i> Upload Data <span class="search-hint">Page</span></div>
+            <div class="search-dropdown-item" data-search="reports"><i class="fas fa-file-alt"></i> Reports <span class="search-hint">Page</span></div>
+            <div class="search-dropdown-item" data-search="settings"><i class="fas fa-cog"></i> Settings <span class="search-hint">Page</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-right">
+        <div class="clock" id="clock" aria-label="Current time"></div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </button>
+        <div class="nav-icon-wrapper" id="notifBtn" tabindex="0" role="button" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="nav-badge pulse-badge">3</span>
+          <div class="dropdown-panel notif-dropdown" id="notifDropdown">
+            <div class="dropdown-header">
+              <span>Notifications</span>
+              <button class="dropdown-mark-read" id="markAllRead">Mark all read</button>
+            </div>
+            <div class="dropdown-body" id="notifList">
+              <div class="notif-item unread">
+                <i class="fas fa-chart-line notif-icon"></i>
+                <div><strong>Report ready</strong><p>Monthly sales report is ready for review.</p></div>
+                <span class="notif-time">2m ago</span>
+              </div>
+              <div class="notif-item unread">
+                <i class="fas fa-upload notif-icon"></i>
+                <div><strong>Upload complete</strong><p>CSV file processed with 1,250 records.</p></div>
+                <span class="notif-time">15m ago</span>
+              </div>
+              <div class="notif-item unread">
+                <i class="fas fa-exclamation-triangle notif-icon"></i>
+                <div><strong>Data anomaly</strong><p>Unusual spike detected in Electronics category.</p></div>
+                <span class="notif-time">1h ago</span>
+              </div>
+              <div class="notif-item">
+                <i class="fas fa-check-circle notif-icon"></i>
+                <div><strong>Analysis done</strong><p>Q2 analysis completed successfully.</p></div>
+                <span class="notif-time">3h ago</span>
+              </div>
+            </div>
+            <div class="dropdown-footer">
+              <a href="#" id="viewAllNotif">View all notifications</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-icon-wrapper user-menu" id="userMenuBtn" tabindex="0" role="button" aria-label="User menu">
+          <i class="fas fa-user-circle user-icon"></i>
+          <div class="dropdown-panel profile-dropdown" id="profileDropdown">
+            <div class="profile-card">
+              <i class="fas fa-user-circle" style="font-size:2.5rem;color:var(--accent-blue);"></i>
+              <div>
+                <strong>Sahil Kalra</strong>
+                <span style="font-size:0.75rem;color:var(--text-muted);">sahil@analyticspro.io</span>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="profile-item" data-action="profile"><i class="fas fa-user"></i> My Profile</a>
+            <a href="#" class="profile-item" data-action="analytics"><i class="fas fa-chart-bar"></i> My Analytics</a>
+            <a href="#" class="profile-item" data-action="billing"><i class="fas fa-credit-card"></i> Billing</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="profile-item" data-action="settings"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" class="profile-item logout-item" data-action="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content" id="mainContent">
+
+      <!-- ========== DASHBOARD ========== -->
+      <section id="section-dashboard" class="section active" aria-label="Dashboard">
+        <div class="welcome-row reveal">
+          <div>
+            <h1 class="welcome-heading">Welcome back, Sahil <span class="wave">👋</span></h1>
+            <p class="welcome-sub">Here's what's happening with your data today.</p>
+          </div>
+          <div class="welcome-actions">
+            <div class="filter-group">
+              <label for="filterDate">Period:</label>
+              <select id="filterDate">
+                <option>Last 7 Days</option>
+                <option selected>Last 30 Days</option>
+                <option>Last Quarter</option>
+                <option>This Year</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-icon" id="refreshBtn" aria-label="Refresh data">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions reveal">
+          <button class="quick-action-card" id="quickUpload">
+            <i class="fas fa-upload"></i>
+            <span>Upload Data</span>
+          </button>
+          <button class="quick-action-card" id="quickReport">
+            <i class="fas fa-download"></i>
+            <span>Download Report</span>
+          </button>
+          <button class="quick-action-card" id="quickShare">
+            <i class="fas fa-share-alt"></i>
+            <span>Share</span>
+          </button>
+          <button class="quick-action-card" id="quickSettings">
+            <i class="fas fa-sliders-h"></i>
+            <span>Settings</span>
+          </button>
+        </div>
+
+        <!-- SUMMARY CARDS -->
+        <div class="cards-grid" id="summaryGrid">
+          <div class="card summary-card skeleton-card" id="card1">
+            <div class="card-icon blue"><i class="fas fa-database"></i></div>
+            <div class="card-info">
+              <span class="card-label">Total Records</span>
+              <span class="card-value skeleton-text" id="totalRecords">--</span>
+              <span class="card-change up skeleton-text-sm">--</span>
+            </div>
+          </div>
+          <div class="card summary-card skeleton-card" id="card2">
+            <div class="card-icon green"><i class="fas fa-dollar-sign"></i></div>
+            <div class="card-info">
+              <span class="card-label">Total Revenue</span>
+              <span class="card-value skeleton-text" id="totalRevenue">--</span>
+              <span class="card-change up skeleton-text-sm">--</span>
+            </div>
+          </div>
+          <div class="card summary-card skeleton-card" id="card3">
+            <div class="card-icon purple"><i class="fas fa-chart-line"></i></div>
+            <div class="card-info">
+              <span class="card-label">Growth</span>
+              <span class="card-value skeleton-text" id="growthPercent">--</span>
+              <span class="card-change up skeleton-text-sm">--</span>
+            </div>
+          </div>
+          <div class="card summary-card skeleton-card" id="card4">
+            <div class="card-icon orange"><i class="fas fa-users"></i></div>
+            <div class="card-info">
+              <span class="card-label">Active Users</span>
+              <span class="card-value skeleton-text" id="activeUsers">--</span>
+              <span class="card-change down skeleton-text-sm">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS -->
+        <div class="charts-grid reveal">
+          <div class="card chart-card skeleton-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-bar chart-icon"></i> Sales Comparison</h3>
+              <div class="card-header-actions">
+                <button class="chart-action-btn" data-export="bar" title="Export as CSV"><i class="fas fa-download"></i></button>
+                <div class="spinner" id="spinner1"></div>
+              </div>
+            </div>
+            <div class="card-body"><canvas id="barChart"></canvas></div>
+          </div>
+          <div class="card chart-card skeleton-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-line chart-icon"></i> Trend Over Time</h3>
+              <div class="card-header-actions">
+                <button class="chart-action-btn" data-export="line" title="Export as CSV"><i class="fas fa-download"></i></button>
+                <div class="spinner" id="spinner2"></div>
+              </div>
+            </div>
+            <div class="card-body"><canvas id="lineChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="charts-grid single reveal">
+          <div class="card chart-card skeleton-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-pie chart-icon"></i> Category Distribution</h3>
+              <div class="card-header-actions">
+                <button class="chart-action-btn" data-export="pie" title="Export as CSV"><i class="fas fa-download"></i></button>
+                <div class="spinner" id="spinner3"></div>
+              </div>
+            </div>
+            <div class="card-body"><canvas id="pieChart"></canvas></div>
+          </div>
+          <div class="card chart-card skeleton-card">
+            <div class="card-header">
+              <h3><i class="fas fa-table chart-icon"></i> Top Categories</h3>
+              <div class="card-header-actions" id="refreshTimer"></div>
+            </div>
+            <div class="card-body table-preview">
+              <table class="data-table" id="categoryTable">
+                <thead><tr><th>Category</th><th>Share</th><th>Growth</th></tr></thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== UPLOAD ========== -->
+      <section id="section-upload" class="section" aria-label="Upload Data">
+        <div class="reveal">
+          <h1 class="welcome-heading"><i class="fas fa-upload section-icon"></i> Upload Data</h1>
+          <p class="welcome-sub">Drag & drop your file or click to browse. Supports CSV and Excel formats.</p>
+        </div>
+
+        <div class="upload-wrapper reveal">
+          <div class="upload-area" id="uploadArea" role="button" tabindex="0" aria-label="File upload area">
+            <div class="upload-graphic">
+              <i class="fas fa-cloud-upload-alt upload-icon"></i>
+              <div class="upload-progress-ring" id="uploadRing">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border-color)" stroke-width="4"/>
+                  <circle class="progress-circle" cx="40" cy="40" r="34" fill="none" stroke="var(--accent-blue)" stroke-width="4" stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <h3>Drag & Drop your file here</h3>
+            <p>or click to browse</p>
+            <p class="upload-formats">Supports <strong>.CSV</strong>, <strong>.XLSX</strong>, <strong>.XLS</strong></p>
+            <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden />
+            <button class="btn btn-outline" id="browseBtn"><i class="fas fa-folder-open"></i> Browse Files</button>
+            <div class="file-info" id="fileInfo"></div>
+          </div>
+        </div>
+
+        <div class="upload-preview reveal" id="uploadPreview" hidden>
+          <div class="card">
+            <div class="card-header"><h3><i class="fas fa-file-csv"></i> File Preview</h3></div>
+            <div class="card-body">
+              <div class="preview-table-wrapper">
+                <table class="data-table" id="previewTable">
+                  <thead><tr id="previewHead"></tr></thead>
+                  <tbody id="previewBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <button class="btn btn-primary analyze-btn" id="analyzeBtn">
+            <i class="fas fa-chart-bar"></i> Analyze Data
+          </button>
+        </div>
+
+        <div class="insights-panel reveal" id="insightsPanel" hidden>
+          <div class="card">
+            <div class="card-header"><h3><i class="fas fa-lightbulb"></i> Insights</h3></div>
+            <div class="card-body" id="insightsBody"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== REPORTS ========== -->
+      <section id="section-reports" class="section" aria-label="Reports">
+        <div class="reveal">
+          <h1 class="welcome-heading"><i class="fas fa-file-alt section-icon"></i> Reports</h1>
+          <p class="welcome-sub">View, schedule, and download analytics reports.</p>
+        </div>
+        <div class="reports-grid reveal">
+          <div class="card report-card">
+            <div class="report-icon"><i class="fas fa-chart-bar" style="color:var(--accent-blue)"></i></div>
+            <h3>Monthly Sales Report</h3>
+            <p>Comprehensive sales breakdown with category analysis.</p>
+            <div class="report-meta">
+              <span><i class="far fa-calendar"></i> Jun 15, 2026</span>
+              <span><i class="far fa-file-pdf"></i> PDF</span>
+            </div>
+            <button class="btn btn-outline btn-sm" data-report="sales"><i class="fas fa-download"></i> Download</button>
+          </div>
+          <div class="card report-card">
+            <div class="report-icon"><i class="fas fa-users" style="color:var(--accent-green)"></i></div>
+            <h3>User Growth Analysis</h3>
+            <p>User acquisition trends and retention metrics.</p>
+            <div class="report-meta">
+              <span><i class="far fa-calendar"></i> Jun 12, 2026</span>
+              <span><i class="far fa-file-pdf"></i> PDF</span>
+            </div>
+            <button class="btn btn-outline btn-sm" data-report="user-growth"><i class="fas fa-download"></i> Download</button>
+          </div>
+          <div class="card report-card">
+            <div class="report-icon"><i class="fas fa-dollar-sign" style="color:var(--accent-orange)"></i></div>
+            <h3>Revenue Overview Q2</h3>
+            <p>Quarterly revenue performance and forecasts.</p>
+            <div class="report-meta">
+              <span><i class="far fa-calendar"></i> Jun 10, 2026</span>
+              <span><i class="far fa-file-pdf"></i> PDF</span>
+            </div>
+            <button class="btn btn-outline btn-sm" data-report="revenue-overview"><i class="fas fa-download"></i> Download</button>
+          </div>
+          <div class="card report-card">
+            <div class="report-icon"><i class="fas fa-shopping-cart" style="color:var(--accent-purple)"></i></div>
+            <h3>Category Performance</h3>
+            <p>Deep dive into product category performance.</p>
+            <div class="report-meta">
+              <span><i class="far fa-calendar"></i> Jun 8, 2026</span>
+              <span><i class="far fa-file-pdf"></i> PDF</span>
+            </div>
+            <button class="btn btn-outline btn-sm" data-report="category-performance"><i class="fas fa-download"></i> Download</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SETTINGS ========== -->
+      <section id="section-settings" class="section" aria-label="Settings">
+        <div class="reveal">
+          <h1 class="welcome-heading"><i class="fas fa-cog section-icon"></i> Settings</h1>
+          <p class="welcome-sub">Customize your dashboard experience.</p>
+        </div>
+        <div class="settings-grid reveal">
+          <div class="card settings-card">
+            <h3><i class="fas fa-palette"></i> Appearance</h3>
+            <div class="setting-row">
+              <span>Dark Mode</span>
+              <label class="toggle">
+                <input type="checkbox" id="darkModeToggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <span>Compact View</span>
+              <label class="toggle">
+                <input type="checkbox" id="compactToggle" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card settings-card">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <div class="setting-row">
+              <span>Email Reports</span>
+              <label class="toggle">
+                <input type="checkbox" id="emailToggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <span>Push Alerts</span>
+              <label class="toggle">
+                <input type="checkbox" id="pushToggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="card settings-card">
+            <h3><i class="fas fa-database"></i> Data</h3>
+            <div class="setting-row">
+              <span>Auto-refresh</span>
+              <label class="toggle">
+                <input type="checkbox" id="autoRefresh" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <span>Export on Schedule</span>
+              <label class="toggle">
+                <input type="checkbox" id="exportToggle" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- SHORTCUTS MODAL -->
+  <div class="modal-overlay" id="shortcutsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Keyboard Shortcuts</h3>
+        <button class="modal-close" id="shortcutsClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-row"><kbd>1</kbd><span>Dashboard</span></div>
+        <div class="shortcut-row"><kbd>2</kbd><span>Upload Data</span></div>
+        <div class="shortcut-row"><kbd>3</kbd><span>Reports</span></div>
+        <div class="shortcut-row"><kbd>4</kbd><span>Settings</span></div>
+        <div class="shortcut-row"><kbd>T</kbd><span>Toggle Theme</span></div>
+        <div class="shortcut-row"><kbd>/</kbd><span>Search</span></div>
+        <div class="shortcut-row"><kbd>?</kbd><span>Show Shortcuts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BG DECORATIONS -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
